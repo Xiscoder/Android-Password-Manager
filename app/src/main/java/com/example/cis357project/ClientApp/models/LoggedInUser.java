@@ -1,4 +1,4 @@
-package com.example.cis357project.data.model;
+package com.example.cis357project.ClientApp.models;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

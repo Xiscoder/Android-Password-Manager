@@ -1,11 +1,8 @@
-package com.example.cis357project.ui.login;
+package com.example.cis357project.ClientApp;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
-
-import com.example.cis357project.data.LoginDataSource;
-import com.example.cis357project.data.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

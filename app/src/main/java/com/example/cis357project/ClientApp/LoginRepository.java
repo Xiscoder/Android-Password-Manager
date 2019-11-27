@@ -1,6 +1,6 @@
-package com.example.cis357project.data;
+package com.example.cis357project.ClientApp;
 
-import com.example.cis357project.data.model.LoggedInUser;
+import com.example.cis357project.ClientApp.models.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

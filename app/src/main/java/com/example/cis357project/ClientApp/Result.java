@@ -1,4 +1,4 @@
-package com.example.cis357project.data;
+package com.example.cis357project.ClientApp;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

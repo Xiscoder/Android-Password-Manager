@@ -1,4 +1,4 @@
-package com.example.cis357project.ui.login;
+package com.example.cis357project.ClientApp;
 
 /**
  * Class exposing authenticated user details to the UI.

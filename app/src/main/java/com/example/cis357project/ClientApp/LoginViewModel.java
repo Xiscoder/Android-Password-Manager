@@ -1,4 +1,4 @@
-package com.example.cis357project.ui.login;
+package com.example.cis357project.ClientApp;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.example.cis357project.data.LoginRepository;
-import com.example.cis357project.data.Result;
-import com.example.cis357project.data.model.LoggedInUser;
+import com.example.cis357project.ClientApp.models.LoggedInUser;
 import com.example.cis357project.R;
 
 public class LoginViewModel extends ViewModel {

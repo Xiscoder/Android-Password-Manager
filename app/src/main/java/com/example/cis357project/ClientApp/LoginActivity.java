@@ -1,4 +1,4 @@
-package com.example.cis357project.ui.login;
+package com.example.cis357project.ClientApp;
 
 import android.app.Activity;
 
@@ -24,8 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cis357project.R;
-import com.example.cis357project.ui.login.LoginViewModel;
-import com.example.cis357project.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 

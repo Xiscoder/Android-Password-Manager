@@ -1,4 +1,4 @@
-package com.example.cis357project.ui.login;
+package com.example.cis357project.ClientApp;
 
 import androidx.annotation.Nullable;
 

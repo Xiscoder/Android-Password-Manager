@@ -9,4 +9,21 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_account_dashboard">AccountDashboard</string>
+    <string name="title_activity_account_creation">AccountCreation</string>
+    <string name="title_activity_password_creation">PasswordCreation</string>
+    <string-array name="questionSet1">
+        <item>What Is your favorite book?</item>
+        <item>What is the name of the road you grew up on?</item>
+        <item>What is your mother’s maiden name?</item>
+        <item>What was the name of your first/current/favorite pet?</item>
+        <item>What was the first company that you worked for?</item>
+    </string-array>
+    <string-array name="questionSet2">
+        <item>Where did you meet your spouse?</item>
+        <item>Where did you go to high school/college?</item>
+        <item>What is your favorite food?</item>
+        <item>What city were you born in?</item>
+        <item>Where is your favorite place to vacation?</item>
+    </string-array>
 </resources>

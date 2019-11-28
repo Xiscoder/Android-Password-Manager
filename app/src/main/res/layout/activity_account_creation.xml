@@ -47,10 +47,10 @@
         android:text="Password:"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameViewFPW" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameView" />
 
     <TextView
-        android:id="@+id/usernameViewFPW"
+        android:id="@+id/usernameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -140,7 +140,7 @@
         app:layout_constraintTop_toBottomOf="@+id/securityQuestionTwoView" />
 
     <EditText
-        android:id="@+id/usernameInputFPW"
+        android:id="@+id/usernameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -161,7 +161,7 @@
         android:hint="Enter Here"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameInputFPW" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameInput" />
 
     <EditText
         android:id="@+id/confirmPasswordInput"

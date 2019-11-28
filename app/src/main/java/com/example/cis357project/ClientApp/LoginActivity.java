@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-        final TextView forgottenPassword = findViewById(R.id.forgottenPassword);
+        final TextView forgottenPassword = findViewById(R.id.forgottenPasswordTitle);
 
         forgottenPassword.setPaintFlags(forgottenPassword.getPaintFlags()
                 | Paint.UNDERLINE_TEXT_FLAG);

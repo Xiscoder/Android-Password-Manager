@@ -26,4 +26,5 @@
         <item>What city were you born in?</item>
         <item>Where is your favorite place to vacation?</item>
     </string-array>
+    <string name="title_activity_forgotten_password">ForgottenPassword</string>
 </resources>

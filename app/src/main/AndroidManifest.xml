@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ClientApp.ForgottenPassword"
+            android:label="@string/title_activity_forgotten_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ClientApp.PasswordCreation"
             android:label="@string/title_activity_password_creation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ClientApp.AccountCreation"
             android:label="@string/title_activity_account_creation"

@@ -1,5 +1,8 @@
 package com.example.cis357project.ClientApp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,7 +24,20 @@ import com.example.cis357project.R;
 
 import org.w3c.dom.Text;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class AccountCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+
+    EditText answerOne;
+    EditText answerTwo;
+    EditText passwordInput;
+    EditText usernameInput;
+    EditText confirmPasswordInput;
+    Spinner questionTwo;
+    Spinner questionOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +51,14 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         TextView passwordView = findViewById(R.id.passwordView);
         TextView confirmationView = findViewById(R.id.confirmationView);
         TextView securityQuestionOneView = findViewById(R.id.securityQuestionOneView);
-        Spinner questionOne = findViewById(R.id.questionOne);
-        EditText answerOne = findViewById(R.id.answerOne);
+        questionOne = findViewById(R.id.questionOne);
+        answerOne = findViewById(R.id.answerOne);
         TextView securityQuestionTwoView = findViewById(R.id.securityQuestionTwoView);
-        Spinner questionTwo = findViewById(R.id.questionTwo);
-        EditText answerTwo = findViewById(R.id.answerTwo);
-        EditText usernameInput = findViewById(R.id.usernameInput);
-        EditText passwordInput = findViewById(R.id.passwordInput);
-        EditText confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
+        questionTwo = findViewById(R.id.questionTwo);
+        answerTwo = findViewById(R.id.answerTwo);
+        usernameInput = findViewById(R.id.usernameInput);
+        passwordInput = findViewById(R.id.passwordInput);
+        confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         Button createAccountButton = findViewById(R.id.createAccountButton);
 
         ArrayAdapter<CharSequence> adapterQuestionSet1 = ArrayAdapter.createFromResource(this,
@@ -59,14 +75,53 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         questionTwo.setAdapter(adapterQuestionSet2);
         questionTwo.setOnItemSelectedListener(this);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                if (!isValidInfo()) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(AccountCreation.this).create();
+                    alertDialog.setMessage("Error in fields\nEither fields are empty or passwords do not match\nFields can only use upper and lower case characters " +
+                            "and the '!' character");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                } else {
+                    String data = usernameInput.getText().toString() + "-" + passwordInput.getText().toString() + "-" + questionOne.getSelectedItem().toString() +
+                            "-" + questionTwo.getSelectedItem().toString() + "-" + answerOne.getText().toString() + "-" +
+                            answerTwo.getText().toString();
+                    FileOutputStream fos = null;
+                    try {
+                        fos = openFileOutput("AccountDetails", MODE_PRIVATE);
+                        fos.write(data.getBytes());
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Intent intent = new Intent(AccountCreation.this, AccountDashboard.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
+
         });
+    }
+
+    public boolean isValidInfo() {
+        boolean validUsername = !usernameInput.getText().toString().isEmpty() && usernameInput.getText().toString().matches("[a-zA-Z0-9!]*");
+        boolean validPassword = passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())
+                && passwordInput.getText().toString().length() >= 6 && passwordInput.getText().toString().matches("[a-zA-Z0-9!]*");
+        boolean validSpinners = questionOne.getSelectedItem() != null && questionOne != null &&
+                questionTwo.getSelectedItem() != null && questionTwo != null;
+        boolean validAnswers = !answerOne.getText().toString().isEmpty() && !answerTwo.getText().toString().isEmpty() &&
+                answerOne.getText().toString().matches("[a-zA-Z0-9]*") && answerTwo.getText().toString().matches("[a-zA-Z0-9!]*");
+        return validUsername && validSpinners && validPassword && validAnswers;
     }
 
     @Override

@@ -91,14 +91,13 @@
         android:layout_width="103dp"
         android:layout_height="94dp"
         android:layout_marginBottom="24dp"
-        android:contentDescription="PLaceholder for image"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/design_default_color_primary_dark"
-        tools:srcCompat="@tools:sample/avatars"
+        app:srcCompat="@drawable/logo"
+        tools:srcCompat="@drawable/logo"
         tools:visibility="visible" />
 
     <TextView

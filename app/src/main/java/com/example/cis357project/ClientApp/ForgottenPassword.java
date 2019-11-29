@@ -1,6 +1,7 @@
 package com.example.cis357project.ClientApp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +14,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cis357project.R;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ForgottenPassword extends AppCompatActivity {
 
@@ -29,11 +38,81 @@ public class ForgottenPassword extends AppCompatActivity {
         TextView forgottenPassword = findViewById(R.id.forgottenPasswordTitle);
         TextView usernameViewFPW = findViewById(R.id.usernameViewFPW);
         TextView securityQuestionOneFPW = findViewById(R.id.securityQuestionOneFPW);
-        EditText securityAnswerOneFPW = findViewById(R.id.securityAnswerOneFPW);
+        final EditText securityAnswerOneFPW = findViewById(R.id.securityAnswerOneFPW);
         TextView securityQuestionTwoFPW = findViewById(R.id.securityQuestionTwoFPW);
-        EditText securityAnswerTwoFPW = findViewById(R.id.securityAnswerTwoFPW);
-        EditText usernameInputFPW = findViewById(R.id.usernameInputFPW);
+        final EditText securityAnswerTwoFPW = findViewById(R.id.securityAnswerTwoFPW);
+        final EditText usernameInputFPW = findViewById(R.id.usernameInputFPW);
         Button submitButtonFPW = findViewById(R.id.submitButtonFPW);
+
+        String questionOne = "";
+        String questionTwo = "";
+
+        File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
+        if (file.exists()) {
+            try {
+                FileInputStream fis = openFileInput("AccountDetails");
+                InputStreamReader isr = new InputStreamReader(fis);
+
+                BufferedReader bufferedReader = new BufferedReader(isr);
+                StringBuffer stringBuffer = new StringBuffer();
+                String line = bufferedReader.readLine();
+
+                String[] creds = line.split("-");
+
+                if(creds.length > 0) {
+                    questionOne = creds[2];
+                    questionTwo = creds[3];
+                }
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(questionOne.equals("")){
+            securityQuestionOneFPW.setText("What is your mothers maiden name?");
+        } else {
+            securityQuestionOneFPW.setText(questionOne);
+        }
+
+        if(questionTwo.equals("")) {
+            securityQuestionTwoFPW.setText("What street did you live on growing up?");
+        } else {
+            securityQuestionTwoFPW.setText(questionTwo);
+        }
+
+        submitButtonFPW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
+                if (file.exists()) {
+                    try {
+                        FileInputStream fis = openFileInput("AccountDetails");
+                        InputStreamReader isr = new InputStreamReader(fis);
+
+                        BufferedReader bufferedReader = new BufferedReader(isr);
+                        StringBuffer stringBuffer = new StringBuffer();
+                        String line = bufferedReader.readLine();
+
+                        String[] creds = line.split("-");
+                        if(creds[0].equals(usernameInputFPW.getText().toString()) && creds[4].equals(securityAnswerOneFPW.getText().toString())
+                            && creds[5].equals(securityAnswerTwoFPW.getText().toString())){
+                            Toast.makeText(getApplicationContext(), "Your password is: " + creds[1], Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "Incorrect credentials or no known account", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public static void hideSoftKeyboard(Activity activity) {

@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.MotionEvent;
@@ -50,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button register = findViewById(R.id.CreateAccount);
 
 
-
         forgottenPassword.setPaintFlags(forgottenPassword.getPaintFlags()
                 | Paint.UNDERLINE_TEXT_FLAG);
 
@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(getApplicationContext(), "Incorrect login credentials", Toast.LENGTH_SHORT).show();
                         }
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

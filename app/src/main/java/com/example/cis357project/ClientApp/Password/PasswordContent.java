@@ -14,10 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +38,6 @@ public class PasswordContent {
 
 
     public static void setContext(Context c) {
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         File file = new File(c.getFilesDir(), "Data");
         if (file.exists()) {
             String line = "";
@@ -64,9 +60,7 @@ public class PasswordContent {
                 String[] creds = line.split("-");
                 Password p;
                 for (int i = 0; i < creds.length; i += 2) {
-                    String dateCreated = dateFormat.format(new Date());
-                    String dateLastSeen = dateFormat.format(new Date());
-                    p = new Password(creds[i], creds[i + 1], dateCreated, dateLastSeen);
+                    p = new Password(creds[i], creds[i + 1]);
                     ITEMS.add(p);
                 }
             }
@@ -79,14 +73,11 @@ public class PasswordContent {
     public static class Password {
         public final String name;
         public final String password;
-        public String dateCreated;
-        public String dateLastSeen;
 
-        public Password(String name, String password, String dateCreated, String dateLastSeen) {
+
+        public Password(String name, String password) {
             this.name = name;
             this.password = password;
-            this.dateCreated = dateCreated;
-            this.dateLastSeen = dateLastSeen;
         }
 
     }

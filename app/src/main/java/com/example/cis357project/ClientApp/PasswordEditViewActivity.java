@@ -37,6 +37,7 @@ public class PasswordEditViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_password_edit_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Edit/View Password");
         setupUI(findViewById(R.id.coordinatorLayout));
 
 
@@ -49,8 +50,6 @@ public class PasswordEditViewActivity extends AppCompatActivity {
         Button saveButton = findViewById(R.id.saveButton);
         Button cancelButton = findViewById(R.id.cancelButton);
         Button toggleEditing = findViewById(R.id.toggleEditing);
-        TextView dateCreatedView = findViewById(R.id.DateCreatedValue);
-        TextView dateLastViewedView = findViewById(R.id.DateLastViewedValue);
 
         nameEditText.setEnabled(false);
         passwordEditText.setEnabled(false);
@@ -58,12 +57,8 @@ public class PasswordEditViewActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         final String name = intent.getStringExtra("USERNAME");
         String password = intent.getStringExtra("PASSWORD");
-        String dateCreated = intent.getStringExtra("DATECREATED");
-        String dateLastSeen = intent.getStringExtra("DATELASTSEEN");
         passwordEditText.setText(password);
         nameEditText.setText(name);
-        dateCreatedView.setText(dateCreated);
-        dateLastViewedView.setText(dateLastSeen);
         nameValue = nameEditText.getText().toString();
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

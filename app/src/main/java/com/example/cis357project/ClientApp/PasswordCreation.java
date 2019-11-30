@@ -26,7 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class PasswordCreation extends AppCompatActivity {
+public class PasswordCreation extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

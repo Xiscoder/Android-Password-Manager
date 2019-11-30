@@ -27,7 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class AccountCreation extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AccountCreation extends AppCompatActivity {
 
 
     EditText answerOne;
@@ -43,7 +43,14 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        final Intent intent = this.getIntent();
         setSupportActionBar(toolbar);
+        if(intent.hasExtra("USERNAME")){
+            getSupportActionBar().setTitle("Update Account");
+        }
+        else {
+            getSupportActionBar().setTitle("Create Account");
+        }
         setupUI(findViewById(R.id.accountCreationLayout));
 
         TextView createAccountTitle = findViewById(R.id.createAccountTitle);
@@ -60,6 +67,7 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         passwordInput = findViewById(R.id.passwordInput);
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         Button createAccountButton = findViewById(R.id.createAccountButton);
+        Button cancelButton = findViewById(R.id.cancelButton);
 
 
         ArrayAdapter<CharSequence> adapterQuestionSet1 = ArrayAdapter.createFromResource(this,
@@ -70,14 +78,10 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
 
         adapterQuestionSet1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         questionOne.setAdapter(adapterQuestionSet1);
-        questionOne.setOnItemSelectedListener(this);
-
         adapterQuestionSet2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         questionTwo.setAdapter(adapterQuestionSet2);
-        questionTwo.setOnItemSelectedListener(this);
 
-        Intent intent = this.getIntent();
-        if(intent.hasExtra("USERNAME")) {
+        if (intent.hasExtra("USERNAME")) {
             usernameInput.setText(intent.getStringExtra("USERNAME"));
             passwordInput.setText(intent.getStringExtra("PASSWORD"));
             confirmPasswordInput.setText(intent.getStringExtra("PASSWORD"));
@@ -88,7 +92,12 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
             questionTwo.setSelection(adapterQuestionSet2.getPosition(intent.getStringExtra("SECURITYQ2")));
             createAccountTitle.setText(intent.getStringExtra("TITLEFIX"));
         }
-
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +135,7 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
             }
 
         });
+
     }
 
     public boolean isValidInfo() {
@@ -139,24 +149,10 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         return validUsername && validSpinners && validPassword && validAnswers;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onItemSelected(AdapterView<?> parent, String text) {
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     public static void hideSoftKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
-        if(view != null) {
+        if (view != null) {
             InputMethodManager inputMethodManager =
                     (InputMethodManager) activity.getSystemService(
                             Activity.INPUT_METHOD_SERVICE);

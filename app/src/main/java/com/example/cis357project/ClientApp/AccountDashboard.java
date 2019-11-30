@@ -34,6 +34,7 @@ public class AccountDashboard extends AppCompatActivity implements PasswordFragm
         setContentView(R.layout.activity_account_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Lock&Key Dashboard");
         setupUI(findViewById(R.id.accountDashboardLayout));
 
         PasswordContent.setContext(this.getApplicationContext());
@@ -100,6 +101,7 @@ public class AccountDashboard extends AppCompatActivity implements PasswordFragm
 
     }
 
+
     public static void hideSoftKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
         if(view != null) {
@@ -139,8 +141,15 @@ public class AccountDashboard extends AppCompatActivity implements PasswordFragm
         Intent toDetails = new Intent(this, PasswordEditViewActivity.class);
         toDetails.putExtra("USERNAME", item.name);
         toDetails.putExtra("PASSWORD", item.password);
-        toDetails.putExtra("DATECREATED", item.dateCreated);
-        toDetails.putExtra("DATELASTSEEN", item.dateLastSeen);
         startActivity(toDetails);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cis357project.ClientApp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 
@@ -15,9 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.cis357project.ClientApp.Password.PasswordContent;
 import com.example.cis357project.R;
 
-public class AccountDashboard extends AppCompatActivity {
+public class AccountDashboard extends AppCompatActivity implements PasswordFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +29,23 @@ public class AccountDashboard extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setupUI(findViewById(R.id.accountDashboardLayout));
 
+        PasswordContent.setContext(this.getApplicationContext());
+
         TextView passwordTitle = findViewById(R.id.passwordTitle);
         TextView updateAccountText = findViewById(R.id.updateAccountText);
         Button addPasswordButton = findViewById(R.id.addPasswordButton);
 
         updateAccountText.setPaintFlags(updateAccountText.getPaintFlags()
                 | Paint.UNDERLINE_TEXT_FLAG);
+
+        addPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                Intent intent = new Intent(AccountDashboard.this, PasswordCreation.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public static void hideSoftKeyboard(Activity activity) {
@@ -45,6 +58,8 @@ public class AccountDashboard extends AppCompatActivity {
                     activity.getCurrentFocus().getWindowToken(), 0);
         }
     }
+
+
 
     public void setupUI(View view) {
 
@@ -67,4 +82,13 @@ public class AccountDashboard extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onListFragmentInteraction(PasswordContent.Password item) {
+        Intent toDetails = new Intent(this, PasswordEditViewActivity.class);
+        toDetails.putExtra("USERNAME", item.name);
+        toDetails.putExtra("PASSWORD", item.password);
+        toDetails.putExtra("DATECREATED", item.dateCreated);
+        toDetails.putExtra("DATELASTSEEN", item.dateLastSeen);
+        startActivity(toDetails);
+    }
 }

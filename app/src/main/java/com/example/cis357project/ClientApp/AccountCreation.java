@@ -105,6 +105,7 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
                         e.printStackTrace();
                     }
                     Intent intent = new Intent(AccountCreation.this, AccountDashboard.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
                 }

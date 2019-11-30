@@ -51,44 +51,40 @@ public class LoginActivity extends AppCompatActivity {
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
-                        if (file.exists()) {
-                            try {
-                                FileInputStream fis = openFileInput("AccountDetails");
-                                InputStreamReader isr = new InputStreamReader(fis);
+            @Override
+            public void onClick(View v) {
+                File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
+                if (file.exists()) {
+                    try {
+                        FileInputStream fis = openFileInput("AccountDetails");
+                        InputStreamReader isr = new InputStreamReader(fis);
 
-                                BufferedReader bufferedReader = new BufferedReader(isr);
-                                StringBuffer stringBuffer = new StringBuffer();
-                                String line = bufferedReader.readLine();
+                        BufferedReader bufferedReader = new BufferedReader(isr);
+                        StringBuffer stringBuffer = new StringBuffer();
+                        String line = bufferedReader.readLine();
 
-                                String[] creds = line.split("-");
-                                if(creds[0].equals(usernameEditText.getText().toString()) && creds[1].equals(passwordEditText.getText().toString())){
-                                    Intent intent = new Intent(LoginActivity.this, AccountDashboard.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                else{
-                                    Toast.makeText(getApplicationContext(), "Incorrect login credentials", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                        String[] creds = line.split("-");
+                        if (creds[0].equals(usernameEditText.getText().toString()) && creds[1].equals(passwordEditText.getText().toString())) {
+                            Intent intent = new Intent(LoginActivity.this, AccountDashboard.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Incorrect login credentials", Toast.LENGTH_SHORT).show();
                         }
-                        else{
-                            Toast.makeText(getApplicationContext(), "No account exists for this device", Toast.LENGTH_SHORT).show();
-                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "No account exists for this device", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+        });
 
-        register.setOnClickListener(new View.OnClickListener()
-
-            {
-                @Override
-                public void onClick (View v){
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
                 if (file.exists()) {
                     AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
@@ -105,20 +101,20 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-            });
+        });
 
         forgottenPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v) {
+            public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, ForgottenPassword.class);
                 startActivity(intent);
             }
         });
-        }
+    }
 
     public static void hideSoftKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
-        if(view != null) {
+        if (view != null) {
             InputMethodManager inputMethodManager =
                     (InputMethodManager) activity.getSystemService(
                             Activity.INPUT_METHOD_SERVICE);
@@ -149,4 +145,4 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    }
+}

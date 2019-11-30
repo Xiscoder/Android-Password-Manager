@@ -27,4 +27,5 @@
         <item>Where is your favorite place to vacation?</item>
     </string-array>
     <string name="title_activity_forgotten_password">ForgottenPassword</string>
+    <string name="title_activity_password_edit_view">PasswordEditViewActivity</string>
 </resources>

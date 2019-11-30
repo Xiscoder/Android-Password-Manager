@@ -111,6 +111,9 @@ public class ForgottenPassword extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                else {
+                    Toast.makeText(getApplicationContext(), "Incorrect credentials or no known account", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -19,6 +19,13 @@ import android.widget.TextView;
 import com.example.cis357project.ClientApp.Password.PasswordContent;
 import com.example.cis357project.R;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class AccountDashboard extends AppCompatActivity implements PasswordFragment.OnListFragmentInteractionListener {
 
     @Override
@@ -34,6 +41,7 @@ public class AccountDashboard extends AppCompatActivity implements PasswordFragm
         TextView passwordTitle = findViewById(R.id.passwordTitle);
         TextView updateAccountText = findViewById(R.id.updateAccountText);
         Button addPasswordButton = findViewById(R.id.addPasswordButton);
+        Button logoutButton = findViewById(R.id.logoutButton);
 
         updateAccountText.setPaintFlags(updateAccountText.getPaintFlags()
                 | Paint.UNDERLINE_TEXT_FLAG);
@@ -42,6 +50,50 @@ public class AccountDashboard extends AppCompatActivity implements PasswordFragm
             @Override
             public void onClick (View v) {
                 Intent intent = new Intent(AccountDashboard.this, PasswordCreation.class);
+                startActivity(intent);
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                Intent intent = new Intent(AccountDashboard.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        updateAccountText.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                Intent intent = new Intent (AccountDashboard.this, AccountCreation.class);
+                File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
+                if (file.exists()) {
+                    try {
+                        FileInputStream fis = openFileInput("AccountDetails");
+                        InputStreamReader isr = new InputStreamReader(fis);
+
+                        BufferedReader bufferedReader = new BufferedReader(isr);
+                        StringBuffer stringBuffer = new StringBuffer();
+                        String line = bufferedReader.readLine();
+
+                        String[] creds = line.split("-");
+                        intent.putExtra("USERNAME", creds[0]);
+                        intent.putExtra("PASSWORD", creds[1]);
+                        intent.putExtra("SECURITYQ1", creds[2]);
+                        intent.putExtra("SECURITYQ2", creds[3]);
+                        intent.putExtra("SECURITYA1", creds[4]);
+                        intent.putExtra("SECURITYA2", creds[5]);
+                        intent.putExtra("RENAMEBUTTON", "Save");
+                        intent.putExtra("TITLEFIX", "Update Account");
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 startActivity(intent);
             }
         });

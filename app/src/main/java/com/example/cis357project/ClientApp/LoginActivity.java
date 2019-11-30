@@ -3,13 +3,17 @@ package com.example.cis357project.ClientApp;
 import android.app.Activity;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
         final TextView forgottenPassword = findViewById(R.id.forgottenPassword);
         final Button register = findViewById(R.id.CreateAccount);
+
 
 
         forgottenPassword.setPaintFlags(forgottenPassword.getPaintFlags()

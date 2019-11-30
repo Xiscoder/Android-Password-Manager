@@ -61,6 +61,7 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         Button createAccountButton = findViewById(R.id.createAccountButton);
 
+
         ArrayAdapter<CharSequence> adapterQuestionSet1 = ArrayAdapter.createFromResource(this,
                 R.array.questionSet1, android.R.layout.simple_spinner_item);
 
@@ -74,6 +75,19 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
         adapterQuestionSet2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         questionTwo.setAdapter(adapterQuestionSet2);
         questionTwo.setOnItemSelectedListener(this);
+
+        Intent intent = this.getIntent();
+        if(intent.hasExtra("USERNAME")) {
+            usernameInput.setText(intent.getStringExtra("USERNAME"));
+            passwordInput.setText(intent.getStringExtra("PASSWORD"));
+            confirmPasswordInput.setText(intent.getStringExtra("PASSWORD"));
+            createAccountButton.setText(intent.getStringExtra("RENAMEBUTTON"));
+            answerOne.setText(intent.getStringExtra("SECURITYA1"));
+            answerTwo.setText(intent.getStringExtra("SECURITYA2"));
+            questionOne.setSelection(adapterQuestionSet1.getPosition(intent.getStringExtra("SECURITYQ1")));
+            questionTwo.setSelection(adapterQuestionSet2.getPosition(intent.getStringExtra("SECURITYQ2")));
+            createAccountTitle.setText(intent.getStringExtra("TITLEFIX"));
+        }
 
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +142,10 @@ public class AccountCreation extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    public void onItemSelected(AdapterView<?> parent, String text) {
         Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 

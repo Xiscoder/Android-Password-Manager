@@ -45,10 +45,9 @@ public class AccountCreation extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         final Intent intent = this.getIntent();
         setSupportActionBar(toolbar);
-        if(intent.hasExtra("USERNAME")){
+        if (intent.hasExtra("USERNAME")) {
             getSupportActionBar().setTitle("Update Account");
-        }
-        else {
+        } else {
             getSupportActionBar().setTitle("Create Account");
         }
         setupUI(findViewById(R.id.accountCreationLayout));
@@ -102,35 +101,51 @@ public class AccountCreation extends AppCompatActivity {
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isValidInfo()) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(AccountCreation.this).create();
-                    alertDialog.setMessage("Error in fields\nEither fields are empty or passwords do not match\nFields can only use upper and lower case characters " +
-                            "and the '!' character");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                } else {
-                    String data = usernameInput.getText().toString() + "-" + passwordInput.getText().toString() + "-" + questionOne.getSelectedItem().toString() +
-                            "-" + questionTwo.getSelectedItem().toString() + "-" + answerOne.getText().toString() + "-" +
-                            answerTwo.getText().toString();
-                    FileOutputStream fos = null;
-                    try {
-                        fos = openFileOutput("AccountDetails", MODE_PRIVATE);
-                        fos.write(data.getBytes());
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                switch (isValidInfo()) {
+                    case 0: {
+                        String data = usernameInput.getText().toString() + "-" + passwordInput.getText().toString() + "-" + questionOne.getSelectedItem().toString() +
+                                "-" + questionTwo.getSelectedItem().toString() + "-" + answerOne.getText().toString() + "-" +
+                                answerTwo.getText().toString();
+                        FileOutputStream fos = null;
+                        try {
+                            fos = openFileOutput("AccountDetails", MODE_PRIVATE);
+                            fos.write(data.getBytes());
+                            fos.close();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(AccountCreation.this, AccountDashboard.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
                     }
-                    Intent intent = new Intent(AccountCreation.this, AccountDashboard.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "Username field cannot be empty!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "Invalid username. Only upper/lower case letters and '!' allowed", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getApplicationContext(), "Invalid password. Only upper/lower case letters and '!' allowed", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(getApplicationContext(), "Passwords must match!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        Toast.makeText(getApplicationContext(), "Password must be at least 6 characters long!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 6:
+                        Toast.makeText(getApplicationContext(), "Please select two questions!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 7:
+                        Toast.makeText(getApplicationContext(), "Answers cannot be empty!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 8:
+                        Toast.makeText(getApplicationContext(), "Invalid answers! Only upper/lower case letters and '!' allowed", Toast.LENGTH_SHORT).show();
+                        break;
+
                 }
             }
 
@@ -138,15 +153,34 @@ public class AccountCreation extends AppCompatActivity {
 
     }
 
-    public boolean isValidInfo() {
-        boolean validUsername = !usernameInput.getText().toString().isEmpty() && usernameInput.getText().toString().matches("[a-zA-Z0-9!]*");
-        boolean validPassword = passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())
-                && passwordInput.getText().toString().length() >= 6 && passwordInput.getText().toString().matches("[a-zA-Z0-9!]*");
+    public int isValidInfo() {
+        boolean validUsernameEmpty = !usernameInput.getText().toString().isEmpty();
+        boolean validUsername = usernameInput.getText().toString().matches("[a-zA-Z0-9!]*");
+        boolean validPassword = passwordInput.getText().toString().matches("[a-zA-Z0-9!]*");
+        boolean validPasswordMatch = passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString());
+        boolean validPasswordLength = passwordInput.getText().toString().length() >= 6;
         boolean validSpinners = questionOne.getSelectedItem() != null && questionOne != null &&
                 questionTwo.getSelectedItem() != null && questionTwo != null;
-        boolean validAnswers = !answerOne.getText().toString().isEmpty() && !answerTwo.getText().toString().isEmpty() &&
-                answerOne.getText().toString().matches("[a-zA-Z0-9]*") && answerTwo.getText().toString().matches("[a-zA-Z0-9!]*");
-        return validUsername && validSpinners && validPassword && validAnswers;
+        boolean validAnswers = !answerOne.getText().toString().isEmpty() && !answerTwo.getText().toString().isEmpty();
+        boolean validAnswersChars = answerOne.getText().toString().matches("[a-zA-Z0-9]*") && answerTwo.getText().toString().matches("[a-zA-Z0-9!]*");
+
+        if (!validUsernameEmpty) {
+            return 1;
+        } else if (!validUsername) {
+            return 2;
+        } else if (!validPassword) {
+            return 3;
+        } else if (!validPasswordMatch) {
+            return 4;
+        } else if (!validPasswordLength) {
+            return 5;
+        } else if (!validSpinners) {
+            return 6;
+        } else if (!validAnswers) {
+            return 7;
+        } else if (!validAnswersChars) {
+            return 8;
+        }else return 0;
     }
 
 

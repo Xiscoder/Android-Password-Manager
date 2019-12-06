@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final TextView forgottenPassword = findViewById(R.id.forgottenPassword);
         final Button register = findViewById(R.id.CreateAccount);
-```
+```     
 Another thing we can do here do make our activities or screens more user-friendly is to hide the keyboard when we touch outside one of the fields. We can do this simply by using these two methods, setupUI and hideSoftKeyboard, to listen for a touch from the user outside of the field and then to hide the keyboard. These methods are shown below.
 ```
     public static void hideSoftKeyboard(Activity activity) {

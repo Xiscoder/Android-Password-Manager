@@ -14,14 +14,20 @@ First the user is greeted by a login screen. For the following examples we're go
 <br>
 ![this screenshot](/tutorialImages/loginScreen.JPG)
 <br>
+<strong>Figure 1:</strong> Login Screen
+<br>
 <br>
 The user is then taken to the dashboard of the application where they can see their passwords. Currently the user does not have any passwords. So upon clicking add button (+ button) it will take the user to a password creation screen.
 <br>
 <br>
 ![this screenshot](/tutorialImages/dashboard.JPG)
 <br>
+<strong>Figure 2:</strong> Dashboard
+<br>
 <br>
 ![this screenshot](/tutorialImages/passwordCreatePage.JPG)
+<br>
+<strong>Figure 3:</strong> Password Creation Page
 <br>
 <br>
 From here the user can create a password. Once this is done the dashboard is updated. In this example I've created two passwords. The passwords are identified by Password: Name of Password.
@@ -29,17 +35,25 @@ From here the user can create a password. Once this is done the dashboard is upd
 <br>
 ![this screenshot](/tutorialImages/showingPasswordsDashboard.JPG)
 <br>
+<strong>Figure 4:</strong> Showing Passwords On Dashboard
+<br>
 <br>
 The user can then click on a password and for which they will be taken to a password edit screen where they can then toggle an editting mode and update their password.
 <br>
 <br>
 ![this screenshot](/tutorialImages/showingPasswordEdit.JPG)
 <br>
+<strong>Figure 5:</strong> Password Editing
+<br>
 <br>
 The last thing a user can do from the dashboard (other than logging out) is updating their login creditentials for the app itself. This is the same page as the initial account creation page accessed from the Create Account button on the login screen. The user can edit their login credentials here.
 <br>
 <br>
 ![this screenshot](/tutorialImages/updatingAccountInfo.JPG)
+<br>
+<strong>Figure 6:</strong> Account Creation/Updating
+<br>
+<br>
 <h2>Gettting started on your app</h2>
 To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can go to <a href="https://developer.android.com/studio" target="_blank">this</a> website and follow the instructions there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio. Once you have Android studio properly installed, we can start building the app!
 <br>

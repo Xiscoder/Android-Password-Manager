@@ -307,7 +307,7 @@ public int isValidInfo() {
 ```
 <br>
 <br>
-Essentially when the save button is hit, we use a switch statement with a function call to check whether the information is valid. We have different cases for whether or not it's valid - however, if the information is valid the statement case returned is 0. If the data is valid we create the string to add to the file that shall be added onto the device holding the given account information. We use the dashes to split the information. This is done because when the data is retrieved we need a way to split the string of information. Once the string has been created you simply stream the data to the file called "AccountDetails" onto the device. Since this file does not exist, it creates the file. Then the program writes the data to the newly created file and closes the stream. Next we take the user to their new dashboard using an Intent.
+Essentially when the save button is hit, we use a switch statement with a function call to check whether the information is valid. We have different cases for whether or not it's valid - however, if the information is valid the statement case returned is 0. If the data is valid we create the string to add to the file that shall be added onto the device holding the given account information. We use the dashes to split the information. This is done because when the data is retrieved we need a way to split the string of information. Once the string has been created you simply stream the data to the file called "AccountDetails" onto the device. Since this file does not exist, it creates the file. Then the program writes the data to the newly created file and closes the stream. Next we take the user to their new dashboard using an Intent. Notice that the file output stream is of type MODE_PRIVATE. This will OVERWRITE the file if it exists with new data and also forces the data to be app-specific!
 <br>
 <br>
 The dashboard simply displays the password information that the user has stored on their phone. Right now it's empty. We will come back to this activity to add the ability to see passwords later. For now add an intent to the add button and link this to the add password functionality. 
@@ -383,3 +383,119 @@ src="https://www.youtube.com/embed/Vyqz_-sJGFk">
 </iframe>
 <br>
 <br>
+After implementing the recycler view and adding the password data into it to display it, the application is fundamentally done. The next few steps are just some cleanup, and additional features that you would expect from an app like this. When the user hits the Update Account button on the dashboard we simply use an intent to jump back to the account creation but send some extra information with it to modify the view so that it no longer looks like someone is creating a fresh account. The code we used for this intent is shown below.
+
+```java
+updateAccountText.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                Intent intent = new Intent (AccountDashboard.this, AccountCreation.class);
+                File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
+                if (file.exists()) {
+                    try {
+                        FileInputStream fis = openFileInput("AccountDetails");
+                        InputStreamReader isr = new InputStreamReader(fis);
+
+                        BufferedReader bufferedReader = new BufferedReader(isr);
+                        StringBuffer stringBuffer = new StringBuffer();
+                        String line = bufferedReader.readLine();
+
+                        String[] creds = line.split("-");
+                        intent.putExtra("USERNAME", creds[0]);
+                        intent.putExtra("PASSWORD", creds[1]);
+                        intent.putExtra("SECURITYQ1", creds[2]);
+                        intent.putExtra("SECURITYQ2", creds[3]);
+                        intent.putExtra("SECURITYA1", creds[4]);
+                        intent.putExtra("SECURITYA2", creds[5]);
+                        intent.putExtra("RENAMEBUTTON", "Save");
+                        intent.putExtra("TITLEFIX", "Update Account");
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                startActivity(intent);
+            }
+        });
+```
+<br>
+<br>
+Notice that the information is just read from the users AccountDetails file and then sent with the intent to the account creation. We rename some of the text fields and basically initialize the page with the data that was sent with the intent. This requires you to modify your account creation page to read from the intent and check if there are any extra values being sent with it. If there aren't then it can be assumed that the person is creating an account and not updating an account. An example of how we handled this is shown below - this code is from the account creation activity!
+
+```java
+ if (intent.hasExtra("USERNAME")) {
+            usernameInput.setText(intent.getStringExtra("USERNAME"));
+            passwordInput.setText(intent.getStringExtra("PASSWORD"));
+            confirmPasswordInput.setText(intent.getStringExtra("PASSWORD"));
+            createAccountButton.setText(intent.getStringExtra("RENAMEBUTTON"));
+            answerOne.setText(intent.getStringExtra("SECURITYA1"));
+            answerTwo.setText(intent.getStringExtra("SECURITYA2"));
+            questionOne.setSelection(adapterQuestionSet1.getPosition(intent.getStringExtra("SECURITYQ1")));
+            questionTwo.setSelection(adapterQuestionSet2.getPosition(intent.getStringExtra("SECURITYQ2")));
+            createAccountTitle.setText(intent.getStringExtra("TITLEFIX"));
+        }
+```
+<br>
+<br>
+This if statement is within the onCreate method in the account creation activity. When the user modifies this and hits the save button, it will overwrite the original AccountDetails file on the device. By referring back to the account creation code that generates the file, you can see that the mode selected for the file output stream is MODE_PRIVATE. This overwrites the file, and forces the file type to be app-specific data.
+<br>
+<br>
+Next lets write the code to allow someone to modify an existing password. When the user clicks on a password on their dashboard you want to send them to a password modification activity. When the password is clicked on send the name of the password and the password itself to the password edit activity. Allow them to modify the values. When the user saves it we have the following code executed from the actionListener. 
+
+```java
+saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String line = "";
+                String buff = "";
+                try {
+                    FileInputStream fis = openFileInput("Data");
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader bufferedReader = new BufferedReader(isr);
+                    StringBuffer stringBuffer = new StringBuffer();
+                    line = bufferedReader.readLine();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (line != null && !line.isEmpty()) {
+                    line = line.substring(1);
+                    String[] creds = line.split("-");
+                    for (int i = 0; i < creds.length; i += 2) {
+                        if (creds[i].equals(nameValue)) {
+                            creds[i] = nameEditText.getText().toString();
+                            creds[i + 1] = passwordEditText.getText().toString();
+                        }
+                    }
+                    for (int i = 0; i < creds.length; i++) {
+                        buff += "-" + creds[i];
+                    }
+                }
+                try {
+                    FileOutputStream fos = openFileOutput("Data", MODE_PRIVATE);
+                    fos.write(buff.getBytes());
+                    fos.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(PasswordEditViewActivity.this, AccountDashboard.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+
+
+            }
+        });
+```
+<br>
+<br>
+Essentially, read the entire file in and check for the value thats being changed and then change it. We then overwrite the entire file with the entire string that was read in. You can see this with the output stream being set to MODE_PRIVATE. You can now update/modify saved passwords. The last portion of the application (other than the cancel/logout buttons) that we will cover is the forgotten password functionality.
+<br>
+<br>
+When the user has forgotten their password they can hit the forgot password button on the main login activity. This will simply load the users information from the AccountDetails file but WILL NOT show any of the information for it. Instead it keeps it in the background until the user verifies their credentials ie. their username and security questions, and then shows their password. This is the end of the tutorial. <a href="https://github.com/Xiscoder/CIS357Project" target="_blank">Here</a> is a link to the source code we used for our application if you need anything else to reference.
+<h2>Further Study and Conclusions</h2>

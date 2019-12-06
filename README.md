@@ -94,8 +94,8 @@ Let’s start by creating a few activities and then layout these activities. Onc
 <br>
 <br>
 First, we create an activity for the login. We then lay it out as shown above in Figure 1 and then we wire up (shown below) the various fields to the login activity.
+<br>
 ```
-
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -111,7 +111,9 @@ public class LoginActivity extends AppCompatActivity {
         final TextView forgottenPassword = findViewById(R.id.forgottenPassword);
         final Button register = findViewById(R.id.CreateAccount);
 ```     
+<br>
 Another thing we can do here do make our activities or screens more user-friendly is to hide the keyboard when we touch outside one of the fields. We can do this simply by using these two methods, setupUI and hideSoftKeyboard, to listen for a touch from the user outside of the field and then to hide the keyboard. These methods are shown below.
+<br>
 ```
     public static void hideSoftKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
@@ -145,6 +147,7 @@ Another thing we can do here do make our activities or screens more user-friendl
         }
     }
 ```
+<br>
 Now we can move onto what we are centered on showcasing in this app and that is the on-device storage. When we hit the Login button on the on the LoginActivity we want to search our app’s storage to see if there is even an account on this device and if there is, if our username and password match. Before we begin to mess with the file system of your app it would be very beneficial to read the Android documentation about File Storage on Android. There they talk about best practices for reading and writing to the internal file system <a href="https://developer.android.com/training/data-storage/app-specific" target="_blank">found here</a>:
 <br>
 <br>
@@ -152,6 +155,7 @@ In our application we store the master account info inside a file called “Acco
 <br>
 <br>
 So, when we hit login, we first need to check if the file “AccountDetails” exist. We believe it to be good practice whenever you are reading from a file to check it exists first for the safety of your app. If our file exists, then we want to read from it. We will do so using a File Input Stream, an Input Stream Reader and a buffered reader. This is way that the Android Documentation went about doing this and so we believe it to be the optimal method. Each of these three tools needs an import:
+<br>
 ```
     import java.io.BufferedReader;
     import java.io.FileInputStream;
@@ -160,6 +164,7 @@ So, when we hit login, we first need to check if the file “AccountDetails” e
 <br>
 <br>
 To read from the files from the device you will be following the standard Java IO. The code for checking if an account exists and information is valid for the user is shown below. We have this logic check when the Login button is clicked. 
+<br>
 ```
     loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

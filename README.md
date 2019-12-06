@@ -210,7 +210,7 @@ Once this page is done, allowing the user to create an account comes next. You w
 Everything is fairly standard on this activity other than two factors: The security question selection, and the save button. First we will cover the creation of the security question selectors. We used Android Spinners. The following video will explain how to use text spinners if you do not know how to do so. 
 <br>
 <br>
-<iframe width="300" height="300"
+<iframe width="325" height="325"
 src="https://www.youtube.com/embed/on_OrrX7Nw4">
 </iframe>
 <br>
@@ -373,3 +373,13 @@ saveButton.setOnClickListener(new View.OnClickListener() {
 <br>
 <br>
 The only difference is that first we read the file and check for duplicate strings. If there are duplicate names a notification is shown saying "You cannot have duplicate names!". Otherwise, if the input is different it appends the data to the file. One thing to make sure you do is tell the file output stream to APPEND the data to the file and not overwrite it. When creating the file output stream make sure to use openFileOutput("Data", MODE_APPEND); functionality otherwise you will be overwritting the data in the file. This is different from the MODE_PRIVATE used in the account creation page. Now we have an application that can save the passwords that the user wants. We need a way of displaying this information. So let's go back to the dashboard and add some additional functionality.
+<br>
+<br>
+Back on the dashboard we need a way to display the information from the passwords. We used an embedded Android Recycler View. This tutorial does not cover how to set up and use this - however, <a href="https://developer.android.com/guide/topics/ui/layout/recyclerview" target="_blank">here</a> is a link to the Android documentation on it and a YouTube video below.
+<br>
+<br>
+<iframe width="325" height="325"
+src="https://www.youtube.com/embed/Vyqz_-sJGFk">
+</iframe>
+<br>
+<br>

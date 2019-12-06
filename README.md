@@ -17,7 +17,7 @@ This means that storing data directly on the device (using App-specific storage)
 <strong>Gettting started on your app</strong>
 <br>
 <br>
-To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can to <a href="https://developer.android.com/studio" target="_blank">(found here)</a>: website and follow the instructions, there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio.
+To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can to <a href="https://developer.android.com/studio" target="_blank">this</a>: website and follow the instructions, there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio.
 <br>
 <br>
 

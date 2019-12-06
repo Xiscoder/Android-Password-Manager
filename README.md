@@ -95,7 +95,8 @@ Let’s start by creating a few activities and then layout these activities. Onc
 <br>
 First, we create an activity for the login. We then lay it out as shown above in Figure 1 and then we wire up (shown below) the various fields to the login activity.
 ```
-    public class LoginActivity extends AppCompatActivity {
+
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

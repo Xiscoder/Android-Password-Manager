@@ -93,12 +93,25 @@ To start developing your app, we need to have Android Studio installed on our wo
 Let’s start by creating a few activities and then layout these activities. Once we have done this we can then move onto the functionality of our app
 <br>
 <br>
-First, we create an activity for the login. We then lay it out as shown above in figure 1 and then we wire up (Figure 12) the various fields to the login activity.
+First, we create an activity for the login. We then lay it out as shown above in figure 1 and then we wire up (shown below) the various fields to the login activity.
 <br>
 <br>
-![this screenshot](/tutorialImages/wireUpPlusSetupUI.JPG)
-<br>
-<strong>Figure 12:</strong> Wiring up variables
+```
+public class LoginActivity extends AppCompatActivity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        setupUI(findViewById(R.id.loginLayout));
+
+
+        final EditText usernameEditText = findViewById(R.id.username);
+        final EditText passwordEditText = findViewById(R.id.password);
+        final Button loginButton = findViewById(R.id.login);
+        final TextView forgottenPassword = findViewById(R.id.forgottenPassword);
+        final Button register = findViewById(R.id.CreateAccount);
+```
 <br>
 <br>
 Another thing we can do here do make our activities or screens more user-friendly is to hide the keyboard when we touch outside one of the fields. We can do this simply by using these two methods, setupUI and hideSoftKeyboard, to listen for a touch from the user outside of the field and then to hide the keyboard. These methods are shown below in Figure 13

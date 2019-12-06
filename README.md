@@ -98,9 +98,17 @@ First, we create an activity for the login. We then lay it out as shown above in
 <br>
 ![this screenshot](/tutorialImages/wireUpPlusSetupUI.JPG)
 <br>
-<strong>Figure 4:</strong> Wiring up variables
+<strong>Figure 12:</strong> Wiring up variables
 <br>
 <br>
 Another thing we can do here do make our activities or screens more user-friendly is to hide the keyboard when we touch outside one of the fields. We can do this simply by using these two methods, setupUI and hideSoftKeyboard, to listen for a touch from the user outside of the field and then to hide the keyboard. These methods are shown below in Figure 13
+<br>
+<br>
+![this screenshot](/tutorialImages/HideKeyboardLogic.JPG)
+<br>
+<strong>Figure 13:</strong> Methods to hide keyboard
+<br>
+<br>
+
 
 

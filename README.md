@@ -192,7 +192,7 @@ loginButton.setOnClickListener(new View.OnClickListener() {
                 }
             }
         });
-```   
+```  
 <br>
 <br>
 In summary, to read from files on the Android device you use the standard Java IO. First, check if the file exists. If it does exist, read the data from the file into a string array. We then check the credientials in the file to see if they match what the user has submitted. If it's valid transition to the dashboard. Otherwise show the error "Incorrect login credentials". Otherwise, if the file does not exist an error will appear saying "No account exists for this device".At this point, the only option the user would have would be to create an account.

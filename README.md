@@ -1,7 +1,7 @@
 # Lock & Key Tutorial
-A Password Manager for CIS357 using on Device Storage
+A password manager for android users using on-device storage options
 <h2>Overview of the Lock & Key Application and On-Device Storage</h2>
-The Lock & Key application allows the user to store a list of the passwords they use directly on their phone. No need for a cloud database, the application is secured directly within the applications data on the device. The primary reason for using the on device storage is because of security. This is mentioned in Androids data and file storage <a href="https://developer.android.com/training/data-storage" target="_blank">(found here)</a>:
+The Lock & Key application allows the user to store a list of the passwords they use directly on their phone. No need for a cloud database, the application is secured directly within the applications data on the device. The primary reason for using the on device storage is because of security. This is mentioned in Androids API about file and data storage <a href="https://developer.android.com/training/data-storage" target="_blank">found here</a>:
 <br>
 <br>
 <strong>App-specific storage: Store files that are meant for your app's use only, either in dedicated directories within an internal storage volume or different dedicated directories within external storage. Use the directories within internal storage to save sensitive information that other apps shouldn't access.</strong>
@@ -93,7 +93,7 @@ To start developing your app, we need to have Android Studio installed on our wo
 Let’s start by creating a few activities and then layout these activities. Once we have done this we can then move onto the functionality of our app
 <br>
 <br>
-First, we create an activity for the login. We then lay it out as shown above in figure 1 and then we wire up (shown below) the various fields to the login activity.
+First, we create an activity for the login. We then lay it out as shown above in Figure 1 and then we wire up (shown below) the various fields to the login activity.
 ```
 public class LoginActivity extends AppCompatActivity {
 
@@ -144,7 +144,7 @@ Another thing we can do here do make our activities or screens more user-friendl
         }
     }
 ```
-Now we can move onto what we are centered on showcasing in this app and that is the on-device storage. When we hit the Login button on the on the LoginActivity we want to search our app’s storage to see if there is even an account on this device and if there is, if our username and password match. Before we begin to mess with the file system of your app it would be very beneficial to read the Android documentation about File Storage on Android. There they talk about best practices for reading and writing to the internal file system<a href="https://developer.android.com/training/data-storage/app-specific" target="_blank">(found here)</a>:
+Now we can move onto what we are centered on showcasing in this app and that is the on-device storage. When we hit the Login button on the on the LoginActivity we want to search our app’s storage to see if there is even an account on this device and if there is, if our username and password match. Before we begin to mess with the file system of your app it would be very beneficial to read the Android documentation about File Storage on Android. There they talk about best practices for reading and writing to the internal file system <a href="https://developer.android.com/training/data-storage/app-specific" target="_blank">found here</a>:
 <br>
 <br>
 In our application we store the master account info inside a file called “AccountDetails”. This file holds all information about the user in one place which is a good design pattern we believe as the data surrounding the object (the user) should be kept together. 

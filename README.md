@@ -210,7 +210,7 @@ Once this page is done, allowing the user to create an account comes next. You w
 Everything is fairly standard on this activity other than two factors: The security question selection, and the save button. First we will cover the creation of the security question selectors. We used Android Spinners. The following video will explain how to use text spinners if you do not know how to do so. 
 <br>
 <br>
-<iframe width="420" height="315"
+<iframe width="300" height="300"
 src="https://www.youtube.com/embed/on_OrrX7Nw4">
 </iframe>
 <br>

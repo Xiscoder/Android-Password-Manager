@@ -12,3 +12,12 @@ The Lock & Key application allows the user to store a list of the passwords they
 <br>
 <br>
 This means that storing data directly on the device (using App-specific storage) is the most secure way of holding information. The only thing that has access to this data is the application itself. This data cannot be access anywhere else outside of the local application on the device.
+<br>
+<br>
+<strong>Gettting started on your app</strong>
+<br>
+<br>
+To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can to THIS [https://developer.android.com/studio] website and follow the instructions, there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio.
+<br>
+<br>
+

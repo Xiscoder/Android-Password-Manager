@@ -116,7 +116,7 @@ In our application we store the master account info inside a file called “Acco
 <br>
 <br>
 So, when we hit login, we first need to check if the file “AccountDetails” exist. We believe it to be good practice whenever you are reading from a file to check it exists first for the safety of your app. If our file exists, then we want to read from it. We will do so using a File Input Stream, an Input Stream Reader and a buffered reader. This is way that the Android Documentation went about doing this and so we believe it to be the optimal method. Each of these three tools needs an import:
-## Markdown
+### Markdown
 ```
 import java.io.BufferedReader;
 import java.io.FileInputStream;

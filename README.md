@@ -1,7 +1,7 @@
-# Lock & Key Tutorial
+# Lock & Key On-Device Data Storage Tutorial
 A password manager for android users using on-device storage options
 <h2>Overview of the Lock & Key Application and On-Device Storage</h2>
-The Lock & Key application allows the user to store a list of the passwords they use directly on their phone. No need for a cloud database, the application is secured directly within the applications data on the device. The primary reason for using the on device storage is because of security. This is mentioned in Androids API about file and data storage <a href="https://developer.android.com/training/data-storage" target="_blank">found here</a>:
+The Lock & Key application allows the user to store a list of the passwords they use directly on their phone. No need for a cloud database, the application is secured directly within the applications data on the device. The primary reason for using the on device storage is because of security. This is mentioned in Androids documentation about file and data storage <a href="https://developer.android.com/training/data-storage" target="_blank">found here</a>:
 <br>
 <br>
 <strong>App-specific storage: Store files that are meant for your app's use only, either in dedicated directories within an internal storage volume or different dedicated directories within external storage. Use the directories within internal storage to save sensitive information that other apps shouldn't access.</strong>
@@ -86,9 +86,10 @@ From here you can navigate down to the folder data/data/com.example.PROJECTNAME/
 <br>
 <strong>Figure 11:</strong> Account Details Storage
 <h2>Gettting started on your app</h2>
+This tutorial assumes that you have a general knowledge of android studio and the basics of it. Throughout the tutorial we shall have links explaining how to implement various parts within the application that do not directly relate to on-device data storage (since this tutorials focus is to help you understand how to use on-device data storage).
+<br>
+<br>
 To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can go to <a href="https://developer.android.com/studio" target="_blank">this</a> website and follow the instructions there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio. Once you have Android studio properly installed, we can start building the app!
-<br>
-<br>
 <h2>Step by step instructions</h2>
 Let’s start by creating a few activities and then layout these activities. Once we have done this we can then move onto the functionality of our app
 <br>
@@ -161,8 +162,7 @@ So, when we hit login, we first need to check if the file “AccountDetails” e
     import java.io.FileInputStream;
     import java.io.InputStreamReader;
 ```
-<br>
-<br>
+
 To read from the files from the device you will be following the standard Java IO. The code for checking if an account exists and information is valid for the user is shown below. We have this logic check when the Login button is clicked. 
 
 ```java
@@ -199,8 +199,7 @@ To read from the files from the device you will be following the standard Java I
             }
         });
 ```  
-<br>
-<br>
+
 In summary, to read from files on the Android device you use the standard Java IO. First, check if the file exists. If it does exist, read the data from the file into a string array. We then check the credientials in the file to see if they match what the user has submitted. If it's valid transition to the dashboard. Otherwise show the error "Incorrect login credentials". Otherwise, if the file does not exist an error will appear saying "No account exists for this device".At this point, the only option the user would have would be to create an account.
 <br>
 <br>
@@ -213,7 +212,6 @@ Everything is fairly standard on this activity other than two factors: The secur
 <iframe width="325" height="325"
 src="https://www.youtube.com/embed/on_OrrX7Nw4">
 </iframe>
-<br>
 <br>
 The save button is our primary focus though because this requires us to save information to a file on the device. When the save button is hit, we have the following actionListener activated.
 
@@ -270,8 +268,7 @@ createAccountButton.setOnClickListener(new View.OnClickListener() {
 
         });
  ```
-<br>
-<br>
+
 First we check if the input provided by the user is valid. This is done with a helper method called isValidInfo. You can create your own validation or use ours. This code is shown below.
 
 ```java
@@ -305,8 +302,7 @@ public int isValidInfo() {
         }else return 0;
     }
 ```
-<br>
-<br>
+
 Essentially when the save button is hit, we use a switch statement with a function call to check whether the information is valid. We have different cases for whether or not it's valid - however, if the information is valid the statement case returned is 0. If the data is valid we create the string to add to the file that shall be added onto the device holding the given account information. We use the dashes to split the information. This is done because when the data is retrieved we need a way to split the string of information. Once the string has been created you simply stream the data to the file called "AccountDetails" onto the device. Since this file does not exist, it creates the file. Then the program writes the data to the newly created file and closes the stream. Next we take the user to their new dashboard using an Intent. Notice that the file output stream is of type MODE_PRIVATE. This will OVERWRITE the file if it exists with new data and also forces the data to be app-specific!
 <br>
 <br>
@@ -370,8 +366,7 @@ saveButton.setOnClickListener(new View.OnClickListener() {
 
         });
 ```
-<br>
-<br>
+
 The only difference is that first we read the file and check for duplicate strings. If there are duplicate names a notification is shown saying "You cannot have duplicate names!". Otherwise, if the input is different it appends the data to the file. One thing to make sure you do is tell the file output stream to APPEND the data to the file and not overwrite it. When creating the file output stream make sure to use openFileOutput("Data", MODE_APPEND); functionality otherwise you will be overwritting the data in the file. This is different from the MODE_PRIVATE used in the account creation page. Now we have an application that can save the passwords that the user wants. We need a way of displaying this information. So let's go back to the dashboard and add some additional functionality.
 <br>
 <br>
@@ -381,7 +376,6 @@ Back on the dashboard we need a way to display the information from the password
 <iframe width="325" height="325"
 src="https://www.youtube.com/embed/Vyqz_-sJGFk">
 </iframe>
-<br>
 <br>
 After implementing the recycler view and adding the password data into it to display it, the application is fundamentally done. The next few steps are just some cleanup, and additional features that you would expect from an app like this. When the user hits the Update Account button on the dashboard we simply use an intent to jump back to the account creation but send some extra information with it to modify the view so that it no longer looks like someone is creating a fresh account. The code we used for this intent is shown below.
 
@@ -420,8 +414,7 @@ updateAccountText.setOnClickListener(new View.OnClickListener () {
             }
         });
 ```
-<br>
-<br>
+
 Notice that the information is just read from the users AccountDetails file and then sent with the intent to the account creation. We rename some of the text fields and basically initialize the page with the data that was sent with the intent. This requires you to modify your account creation page to read from the intent and check if there are any extra values being sent with it. If there aren't then it can be assumed that the person is creating an account and not updating an account. An example of how we handled this is shown below - this code is from the account creation activity!
 
 ```java
@@ -437,8 +430,7 @@ Notice that the information is just read from the users AccountDetails file and 
             createAccountTitle.setText(intent.getStringExtra("TITLEFIX"));
         }
 ```
-<br>
-<br>
+
 This if statement is within the onCreate method in the account creation activity. When the user modifies this and hits the save button, it will overwrite the original AccountDetails file on the device. By referring back to the account creation code that generates the file, you can see that the mode selected for the file output stream is MODE_PRIVATE. This overwrites the file, and forces the file type to be app-specific data.
 <br>
 <br>
@@ -492,10 +484,10 @@ saveButton.setOnClickListener(new View.OnClickListener() {
             }
         });
 ```
-<br>
-<br>
+
 Essentially, read the entire file in and check for the value thats being changed and then change it. We then overwrite the entire file with the entire string that was read in. You can see this with the output stream being set to MODE_PRIVATE. You can now update/modify saved passwords. The last portion of the application (other than the cancel/logout buttons) that we will cover is the forgotten password functionality.
 <br>
 <br>
 When the user has forgotten their password they can hit the forgot password button on the main login activity. This will simply load the users information from the AccountDetails file but WILL NOT show any of the information for it. Instead it keeps it in the background until the user verifies their credentials ie. their username and security questions, and then shows their password. This is the end of the tutorial. <a href="https://github.com/Xiscoder/CIS357Project" target="_blank">Here</a> is a link to the source code we used for our application if you need anything else to reference.
 <h2>Further Study and Conclusions</h2>
+There is a lot more that the application potentially could do and different ways to implement what we have done here. The primary aspect we wanted to demonstrate was reading/writing information directly to the file storage of the Android device. Things that could potentially be added to the application include copying of passwords into the phones clipboard to be used for later, password generation, and perhaps using the Android Autofill API to autofill passwords in different applications. The main benifit of our application however is that because everything is managed directly on the phone all password information is safe and cannot be stolen or hacked from an outside third party database. The downside is that we can not do cool stuff like holding a persons passwords that they use across multiple systems. A database that could be implemented for this could potentially be Googles <a href="https://firebase.google.com/" target="_blank">Firebase</a>. <a href="https://github.com/Xiscoder/CIS357Project" target="_blank">Here</a> is a link to the final source code we used for this application.

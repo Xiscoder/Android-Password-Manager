@@ -85,7 +85,7 @@ From here you can navigate down to the folder data/data/com.example.PROJECTNAME/
 ![this screenshot](/tutorialImages/accountDetailsStorage.JPG)
 <br>
 <strong>Figure 11:</strong> Account Details Storage
-<h2>Gettting started on your app</h2>
+<h2>Getting started on your app</h2>
 This tutorial assumes that you have a general knowledge of android studio and the basics of it. Throughout the tutorial we shall have links explaining how to implement various parts within the application that do not directly relate to on-device data storage (since this tutorials focus is to help you understand how to use on-device data storage).
 <br>
 <br>

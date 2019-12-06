@@ -145,7 +145,6 @@ public class AccountCreation extends AppCompatActivity {
                     case 8:
                         Toast.makeText(getApplicationContext(), "Invalid answers! Only upper/lower case letters and '!' allowed", Toast.LENGTH_SHORT).show();
                         break;
-
                 }
             }
 

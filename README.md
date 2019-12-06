@@ -44,4 +44,8 @@ The last thing a user can do from the dashboard (other than logging out) is upda
 To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can go to <a href="https://developer.android.com/studio" target="_blank">this</a> website and follow the instructions there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio. Once you have Android studio properly installed, we can start building the app!
 <br>
 <br>
+<h2>Step by step instructions</h2>
+<br>
+<br>
+Let’s start by creating a few activities and then layout these activities. Once we have done this we can then move onto the functionality of our app
 

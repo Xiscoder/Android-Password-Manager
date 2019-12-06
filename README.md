@@ -95,7 +95,7 @@ Let’s start by creating a few activities and then layout these activities. Onc
 <br>
 First, we create an activity for the login. We then lay it out as shown above in Figure 1 and then we wire up (shown below) the various fields to the login activity.
 ```
-public class LoginActivity extends AppCompatActivity {
+    public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,15 +152,15 @@ In our application we store the master account info inside a file called “Acco
 <br>
 So, when we hit login, we first need to check if the file “AccountDetails” exist. We believe it to be good practice whenever you are reading from a file to check it exists first for the safety of your app. If our file exists, then we want to read from it. We will do so using a File Input Stream, an Input Stream Reader and a buffered reader. This is way that the Android Documentation went about doing this and so we believe it to be the optimal method. Each of these three tools needs an import:
 ```
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+    import java.io.BufferedReader;
+    import java.io.FileInputStream;
+    import java.io.InputStreamReader;
 ```
 <br>
 <br>
 To read from the files from the device you will be following the standard Java IO. The code for checking if an account exists and information is valid for the user is shown below. We have this logic check when the Login button is clicked. 
 ```
-loginButton.setOnClickListener(new View.OnClickListener() {
+    loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
@@ -174,7 +174,7 @@ loginButton.setOnClickListener(new View.OnClickListener() {
                         String line = bufferedReader.readLine();
 
                         String[] creds = line.split("-");
-                        if (creds[0].equals(usernameEditText.getText().toString()) && creds[1].equals(passwordEditText.getText().toString())) {
+                        if (creds[0].equals(usernameEditText.getText().toString()) &&                       creds[1].equals(passwordEditText.getText().toString())) {
                             Intent intent = new Intent(LoginActivity.this, AccountDashboard.class);
                             startActivity(intent);
                             finish();

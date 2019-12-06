@@ -60,7 +60,31 @@ If the user has forgotten their account, there is a forgot password button on th
 ![this screenshot](/tutorialImages/forgottenPasswordScreen.JPG)
 <br>
 <strong>Figure 7:</strong> Forgotten Password Screen
-<h3>Pictures of Application Usage</h3>
+<h3>Pictures of Data Storage</h3>
+When the application is launched. You can open up the device file explorer on Android Studio and it will show you all of the files on that device.
+<br>
+<br>
+![this screenshot](/tutorialImages/deviceFileExplorer.JPG)
+<br>
+<strong>Figure 8:</strong> Device File Explorer
+<br>
+<br>
+From here you can navigate down to the folder data/data/com.example.PROJECTNAME/files/ to the two data files if the application has created them. We have the AccountDetails file for the users account details, and a Data file for the passwords saved onto the application. The data is stored just as text files with strings.
+<br>
+<br>
+![this screenshot](/tutorialImages/locationOfFiles.JPG)
+<br>
+<strong>Figure 9:</strong> Location of Files on File Explorer
+<br>
+<br>
+![this screenshot](/tutorialImages/passwordStorage.JPG)
+<br>
+<strong>Figure 10:</strong> Password Storage
+<br>
+<br>
+![this screenshot](/tutorialImages/accountDetailsStorage.JPG)
+<br>
+<strong>Figure 11:</strong> Account Details Storage
 <h2>Gettting started on your app</h2>
 To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can go to <a href="https://developer.android.com/studio" target="_blank">this</a> website and follow the instructions there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio. Once you have Android studio properly installed, we can start building the app!
 <br>

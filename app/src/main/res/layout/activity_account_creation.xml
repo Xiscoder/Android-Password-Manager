@@ -66,10 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
         android:text="Password Confirm:"
         android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/confirmPasswordInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordView" />
 
@@ -86,28 +84,26 @@
 
     <Spinner
         android:id="@+id/questionOne"
-        android:layout_width="0dp"
+        android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/securityQuestionOneView" />
 
     <EditText
         android:id="@+id/answerOne"
-        android:layout_width="0dp"
+        android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Answer"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionOne" />
+        app:layout_constraintTop_toBottomOf="@+id/securityQuestionOneView" />
 
     <TextView
         android:id="@+id/securityQuestionTwoView"
@@ -122,26 +118,24 @@
 
     <Spinner
         android:id="@+id/questionTwo"
-        android:layout_width="0dp"
+        android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/securityQuestionTwoView" />
 
     <EditText
         android:id="@+id/answerTwo"
-        android:layout_width="0dp"
+        android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Answer"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/securityQuestionTwoView" />
 
@@ -189,8 +183,7 @@
         android:layout_marginBottom="40dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answerTwo" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/createAccountButton"
@@ -200,7 +193,6 @@
         android:layout_marginBottom="40dp"
         android:text="Create"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answerTwo" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

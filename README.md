@@ -8,7 +8,7 @@ The Lock & Key application allows the user to store a list of the passwords they
 <br>
 <br>
 This means that storing data directly on the device (using App-specific storage) is the most secure way of holding information. The only thing that has access to this data is the application itself. This data cannot be access anywhere else outside of the local application on the device.
-<h5>Pictures of application and data storage locations</h5>
+<h4>Pictures of application and data storage locations</h4>
 First the user is greeted by a login screen. For the following examples we're going to assume the user already has an account on the phone. For this application <strong>ONLY ONE</strong> account can be on a single phone. We do not allow multiple accounts because we assume that a phone is a personal device that a single person will be using.
 <img src="/tutorialImages/loginScreen.JPG" alt="login screen">
 <h3>Gettting started on your app</h3>

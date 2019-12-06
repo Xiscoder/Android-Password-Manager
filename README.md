@@ -13,10 +13,12 @@ First the user is greeted by a login screen. For the following examples we're go
 <br>
 <br>
 ![this screenshot](/tutorialImages/loginScreen.JPG)
+<br>
+<br>
 The user is then taken to the dashboard of the application where they can see their passwords. Currently the user does not have any passwords. So upon clicking add button (+ button) it will take the user to a password creation screen.
 <br>
 <br>
-![this screenshot](/tutorialImages/dasboard.JPG)
+![this screenshot](/tutorialImages/dashboard.JPG)
 <h2>Gettting started on your app</h2>
 To start developing your app, we need to have Android Studio installed on our workstation. If you don’t have Android Studio on your workstation then you can go to <a href="https://developer.android.com/studio" target="_blank">this</a> website and follow the instructions there on how to get it set up. One of the pleasant things about this application we will be able to build everything with just Android Studio. Once you have Android studio properly installed, we can start building the app!
 <br>

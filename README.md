@@ -156,8 +156,54 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 ```
+<br>
+<br>
+To read from the files from the device you will be following the standard Java IO. The code for checking if an account exists and information is valid for the user is shown below. We have this logic check when the Login button is clicked. 
+```
+loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File file = new File(getApplicationContext().getFilesDir(), "AccountDetails");
+                if (file.exists()) {
+                    try {
+                        FileInputStream fis = openFileInput("AccountDetails");
+                        InputStreamReader isr = new InputStreamReader(fis);
 
+                        BufferedReader bufferedReader = new BufferedReader(isr);
+                        StringBuffer stringBuffer = new StringBuffer();
+                        String line = bufferedReader.readLine();
 
+                        String[] creds = line.split("-");
+                        if (creds[0].equals(usernameEditText.getText().toString()) && creds[1].equals(passwordEditText.getText().toString())) {
+                            Intent intent = new Intent(LoginActivity.this, AccountDashboard.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Incorrect login credentials", Toast.LENGTH_SHORT).show();
+                        }
 
-
-
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "No account exists for this device", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+```   
+<br>
+<br>
+In summary, to read from files on the Android device you use the standard Java IO. First, check if the file exists. If it does exist, read the data from the file into a string array. We then check the credientials in the file to see if they match what the user has submitted. If it's valid transition to the dashboard. Otherwise show the error "Incorrect login credentials". Otherwise, if the file does not exist an error will appear saying "No account exists for this device".At this point, the only option the user would have would be to create an account.
+<br>
+<br>
+Once this page is done, allowing the user to create an account comes next. You will want to use an intent to reach the account creation activity you have created (or will create). The account creation screen should look something like Figure 6. Create the fields to allow the user to enter a Username, Password, Password Confirmation and two Security Questions with two fields for an answer.
+<br>
+<br>
+Everything is fairly standard on this activity other than two factors: The security question selection, and the save button. First we will cover the creation of the security question selectors. We used Android Spinners. The following video will explain how to use text spinners if you do not know how to do so. 
+<br>
+<br>
+<iframe width="420" height="315"
+src="https://www.youtube.com/watch?v=on_OrrX7Nw4">
+</iframe>

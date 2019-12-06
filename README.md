@@ -216,6 +216,7 @@ src="https://www.youtube.com/embed/on_OrrX7Nw4">
 <br>
 <br>
 The save button is our primary focus though because this requires us to save information to a file on the device. When the save button is hit, we have the following actionListener activated.
+
 ```java
 createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,6 +273,7 @@ createAccountButton.setOnClickListener(new View.OnClickListener() {
 <br>
 <br>
 First we check if the input provided by the user is valid. This is done with a helper method called isValidInfo. You can create your own validation or use ours. This code is shown below.
+
 ```java
 public int isValidInfo() {
         boolean validUsernameEmpty = !usernameInput.getText().toString().isEmpty();
@@ -312,6 +314,7 @@ The dashboard simply displays the password information that the user has stored 
 <br>
 <br>
 The primary idea behind the code of the add password activity is the logic behind actually adding the code to another file called "Data" that stores the users password data. The way the information is saved works exactly as it did when creating a users account. The following code was used to save the information given by the user into the Data file.
+
 ```java
 saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -366,5 +369,7 @@ saveButton.setOnClickListener(new View.OnClickListener() {
             }
 
         });
-  ```
+```
+<br>
+<br>
 The only difference is that first we read the file and check for duplicate strings. If there are duplicate names a notification is shown saying "You cannot have duplicate names!". Otherwise, if the input is different it appends the data to the file. One thing to make sure you do is tell the file output stream to APPEND the data to the file and not overwrite it. When creating the file output stream make sure to use openFileOutput("Data", MODE_APPEND); functionality otherwise you will be overwritting the data in the file. This is different from the MODE_PRIVATE used in the account creation page. Now we have an application that can save the passwords that the user wants. We need a way of displaying this information. So let's go back to the dashboard and add some additional functionality.

@@ -213,3 +213,158 @@ Everything is fairly standard on this activity other than two factors: The secur
 <iframe width="420" height="315"
 src="https://www.youtube.com/embed/on_OrrX7Nw4">
 </iframe>
+<br>
+<br>
+The save button is our primary focus though because this requires us to save information to a file on the device. When the save button is hit, we have the following actionListener activated.
+```java
+createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (isValidInfo()) {
+                    case 0: {
+                        String data = usernameInput.getText().toString() + "-" + passwordInput.getText().toString() + "-" + questionOne.getSelectedItem().toString() +
+                                "-" + questionTwo.getSelectedItem().toString() + "-" + answerOne.getText().toString() + "-" +
+                                answerTwo.getText().toString();
+                        FileOutputStream fos = null;
+                        try {
+                            fos = openFileOutput("AccountDetails", MODE_PRIVATE);
+                            fos.write(data.getBytes());
+                            fos.close();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(AccountCreation.this, AccountDashboard.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "Username field cannot be empty!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "Invalid username. Only upper/lower case letters and '!' allowed", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getApplicationContext(), "Invalid password. Only upper/lower case letters and '!' allowed", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(getApplicationContext(), "Passwords must match!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        Toast.makeText(getApplicationContext(), "Password must be at least 6 characters long!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 6:
+                        Toast.makeText(getApplicationContext(), "Please select two questions!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 7:
+                        Toast.makeText(getApplicationContext(), "Answers cannot be empty!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 8:
+                        Toast.makeText(getApplicationContext(), "Invalid answers! Only upper/lower case letters and '!' allowed", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+        });
+ ```
+<br>
+<br>
+First we check if the input provided by the user is valid. This is done with a helper method called isValidInfo. You can create your own validation or use ours. This code is shown below.
+```java
+public int isValidInfo() {
+        boolean validUsernameEmpty = !usernameInput.getText().toString().isEmpty();
+        boolean validUsername = usernameInput.getText().toString().matches("[a-zA-Z0-9!]*");
+        boolean validPassword = passwordInput.getText().toString().matches("[a-zA-Z0-9!]*");
+        boolean validPasswordMatch = passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString());
+        boolean validPasswordLength = passwordInput.getText().toString().length() >= 6;
+        boolean validSpinners = questionOne.getSelectedItem() != null && questionOne != null &&
+                questionTwo.getSelectedItem() != null && questionTwo != null;
+        boolean validAnswers = !answerOne.getText().toString().isEmpty() && !answerTwo.getText().toString().isEmpty();
+        boolean validAnswersChars = answerOne.getText().toString().matches("[a-zA-Z0-9]*") && answerTwo.getText().toString().matches("[a-zA-Z0-9!]*");
+
+        if (!validUsernameEmpty) {
+            return 1;
+        } else if (!validUsername) {
+            return 2;
+        } else if (!validPassword) {
+            return 3;
+        } else if (!validPasswordMatch) {
+            return 4;
+        } else if (!validPasswordLength) {
+            return 5;
+        } else if (!validSpinners) {
+            return 6;
+        } else if (!validAnswers) {
+            return 7;
+        } else if (!validAnswersChars) {
+            return 8;
+        }else return 0;
+    }
+```
+<br>
+<br>
+Essentially when the save button is hit, we use a switch statement with a function call to check whether the information is valid. We have different cases for whether or not it's valid - however, if the information is valid the statement case returned is 0. If the data is valid we create the string to add to the file that shall be added onto the device holding the given account information. We use the dashes to split the information. This is done because when the data is retrieved we need a way to split the string of information. Once the string has been created you simply stream the data to the file called "AccountDetails" onto the device. Since this file does not exist, it creates the file. Then the program writes the data to the newly created file and closes the stream. Next we take the user to their new dashboard using an Intent.
+<br>
+<br>
+The dashboard simply displays the password information that the user has stored on their phone. Right now it's empty. We will come back to this activity to add the ability to see passwords later. For now add an intent to the add button and link this to the add password functionality. 
+<br>
+<br>
+The primary idea behind the code of the add password activity is the logic behind actually adding the code to another file called "Data" that stores the users password data. The way the information is saved works exactly as it did when creating a users account. The following code was used to save the information given by the user into the Data file.
+```java
+saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!nameEditText.getText().toString().isEmpty() && !passwordEditText.getText().toString().isEmpty()) {
+                    String duo = "-" + nameEditText.getText().toString() + "-" + passwordEditText.getText().toString();
+                    boolean duplicate = false;
+                    String line = "";
+                    try {
+                        FileInputStream fis = openFileInput("Data");
+                        InputStreamReader isr = new InputStreamReader(fis);
+                        BufferedReader bufferedReader = new BufferedReader(isr);
+                        StringBuffer stringBuffer = new StringBuffer();
+                        line = bufferedReader.readLine();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (line != null && !line.isEmpty()) {
+                        line = line.substring(1);
+                        String[] creds = line.split("-");
+                        for (int i = 0; i < creds.length; i += 2) {
+                            if (creds[i].equals(nameEditText.getText().toString())) {
+                                duplicate = true;
+                                Toast.makeText(getApplicationContext(), "You cannot have duplicate names!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    if (!duplicate) {
+                        try {
+                            FileOutputStream fos = openFileOutput("Data", MODE_APPEND);
+                            fos.write(duo.getBytes());
+                            fos.close();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(PasswordCreation.this, AccountDashboard.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Input fields cannot be empty!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                Toast.makeText(getApplicationContext(), "Input fields cannot be empty!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
+  ```
+The only difference is that first we read the file and check for duplicate strings. If there are duplicate names a notification is shown saying "You cannot have duplicate names!". Otherwise, if the input is different it appends the data to the file. One thing to make sure you do is tell the file output stream to APPEND the data to the file and not overwrite it. When creating the file output stream make sure to use openFileOutput("Data", MODE_APPEND); functionality otherwise you will be overwritting the data in the file. This is different from the MODE_PRIVATE used in the account creation page. Now we have an application that can save the passwords that the user wants. We need a way of displaying this information. So let's go back to the dashboard and add some additional functionality.

@@ -45,7 +45,5 @@ To start developing your app, we need to have Android Studio installed on our wo
 <br>
 <br>
 <h2>Step by step instructions</h2>
-<br>
-<br>
 Let’s start by creating a few activities and then layout these activities. Once we have done this we can then move onto the functionality of our app
 

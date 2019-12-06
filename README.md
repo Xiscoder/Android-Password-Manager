@@ -94,8 +94,6 @@ Let’s start by creating a few activities and then layout these activities. Onc
 <br>
 <br>
 First, we create an activity for the login. We then lay it out as shown above in figure 1 and then we wire up (shown below) the various fields to the login activity.
-<br>
-<br>
 ```
 public class LoginActivity extends AppCompatActivity {
 
@@ -112,16 +110,40 @@ public class LoginActivity extends AppCompatActivity {
         final TextView forgottenPassword = findViewById(R.id.forgottenPassword);
         final Button register = findViewById(R.id.CreateAccount);
 ```
-<br>
-<br>
-Another thing we can do here do make our activities or screens more user-friendly is to hide the keyboard when we touch outside one of the fields. We can do this simply by using these two methods, setupUI and hideSoftKeyboard, to listen for a touch from the user outside of the field and then to hide the keyboard. These methods are shown below in Figure 13
-<br>
-<br>
-![this screenshot](/tutorialImages/HideKeyboardLogic.JPG)
-<br>
-<strong>Figure 13:</strong> Methods to hide keyboard
-<br>
-<br>
+Another thing we can do here do make our activities or screens more user-friendly is to hide the keyboard when we touch outside one of the fields. We can do this simply by using these two methods, setupUI and hideSoftKeyboard, to listen for a touch from the user outside of the field and then to hide the keyboard. These methods are shown below.
+```
+    public static void hideSoftKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) activity.getSystemService(
+                            Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    public void setupUI(View view) {
+
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(LoginActivity.this);
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
+        }
+    }
+```
 Now we can move onto what we are centered on showcasing in this app and that is the on-device storage. When we hit the Login button on the on the LoginActivity we want to search our app’s storage to see if there is even an account on this device and if there is, if our username and password match. Before we begin to mess with the file system of your app it would be very beneficial to read the Android documentation about File Storage on Android. There they talk about best practices for reading and writing to the internal file system<a href="https://developer.android.com/training/data-storage/app-specific" target="_blank">(found here)</a>:
 <br>
 <br>

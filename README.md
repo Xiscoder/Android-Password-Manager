@@ -1,6 +1,6 @@
 # Lock & Key Tutorial
 A Password Manager for CIS357 using on Device Storage
-<h2>Overview of the Lock & Key Application and On-Device Storage</h2>
+<h2 style="text-align:center;">Overview of the Lock & Key Application and On-Device Storage</h2>
 The Lock & Key application allows the user to store a list of the passwords they use directly on their phone. No need for a cloud database, the application is secured directly within the applications data on the device. The primary reason for using the on device storage is because of security. This is mentioned in Androids data and file storage <a href="https://developer.android.com/training/data-storage" target="_blank">(found here)</a>:
 <br>
 <br>
@@ -8,11 +8,11 @@ The Lock & Key application allows the user to store a list of the passwords they
 <br>
 <br>
 This means that storing data directly on the device (using App-specific storage) is the most secure way of holding information. The only thing that has access to this data is the application itself. This data cannot be access anywhere else outside of the local application on the device.
-<h3>Pictures of Application Usage</h3>
+<h3 style="text-align:center;">Pictures of Application Usage</h3>
 First the user is greeted by a login screen. For the following examples we're going to assume the user already has an account on the phone. For this application <strong>ONLY ONE</strong> account can be on a single phone. We do not allow multiple accounts because we assume that a phone is a personal device that a single person will be using.
 <br>
 <br>
-![this screenshot](/tutorialImages/loginScreen.JPG)
+<p style="text-align:center;">![this screenshot](/tutorialImages/loginScreen.JPG)</p>
 <br>
 <strong>Figure 1:</strong> Login Screen
 <br>

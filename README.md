@@ -12,7 +12,7 @@ This means that storing data directly on the device (using App-specific storage)
 First the user is greeted by a login screen. For the following examples we're going to assume the user already has an account on the phone. For this application <strong>ONLY ONE</strong> account can be on a single phone. We do not allow multiple accounts because we assume that a phone is a personal device that a single person will be using.
 <br>
 <br>
-<img src="/tutorialImages/loginScreen.JPG" align="middle">
+![this screenshot](/tutorialImages/dashboard.JPG){align="middle"}
 <br>
 <strong>Figure 1:</strong> Login Screen
 <br>
